@@ -1,0 +1,21 @@
+{
+  "name": "com.actionfit.projectcore",
+  "version": "1.0.0",
+  "displayName": "Unity Project Core",
+  "description": "",
+  "unity": "6000.0",
+  "author": {
+    "name": "ActionFit-HS",
+    "email": "huisung@actionfit.kr",
+    "url": "https://github.com/HuiSungz"
+  },
+  "keywords": [
+    "actionfit",
+    "framework",
+    "module",
+    "projecter",
+    "project",
+    "project-Core",
+    "unity"
+  ]
+}
