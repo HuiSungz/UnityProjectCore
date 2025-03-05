@@ -31,15 +31,6 @@ namespace ProjectCore.Module
             else
             {
                 Debug.LogError($"Initializer prefab is not set in {Name}.");
-
-                LoadInitializerPrefab();
-                if (!_initializeScope)
-                {
-                    return;
-                }
-
-                var prefabScope = Instantiate(_initializeScope);
-                prefabScope.name = Name;
             }
         }
         
