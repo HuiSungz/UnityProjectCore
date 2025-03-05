@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System.Linq;
 using VContainer.Unity;
 
 namespace ProjectCore.Module.Editor
@@ -63,12 +64,19 @@ namespace ProjectCore.Module.Editor
                 
                 var settings = CreateInstance<VContainerSettings>();
                 settings.RootLifetimeScope = Resources.Load<LifetimeScope>("GlobalLifetimeScope");
+                settings.EnableDiagnostics = true;
                 if (!settings.RootLifetimeScope)
                 {
                     Debug.LogWarning("GlobalLifetimeScope prefab not found in Resources folder.");
                 }
                 
                 AssetDatabase.CreateAsset(settings, assetPath);
+                
+                var preloadedAssets = PlayerSettings.GetPreloadedAssets().ToList();
+                preloadedAssets.RemoveAll(x => x is VContainerSettings);
+                preloadedAssets.Add(settings);
+                PlayerSettings.SetPreloadedAssets(preloadedAssets.ToArray());
+                
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 

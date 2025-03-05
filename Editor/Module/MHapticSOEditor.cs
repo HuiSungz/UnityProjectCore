@@ -13,8 +13,10 @@ namespace ProjectCore.Module.Editor
         private GUIStyle _installedStyle;
         private GUIStyle _notInstalledStyle;
         private GUIStyle _codeStyle;
+        
         private bool _isInstalling;
         private bool _isInit;
+        private bool _isInstalled;
 
         private void InitializeStyles()
         {
@@ -57,16 +59,20 @@ namespace ProjectCore.Module.Editor
 
             _isInit = true;
         }
+
+        private void OnEnable()
+        {
+            _isInstalled = GitPackageValidator.IsInstallValidation(VIBRATION_PACKAGE_URL);
+        }
         
         public override void OnInspectorGUI()
         {
             InitializeStyles();
             
-            var isPackageInstalled = GitPackageValidator.IsInstallValidation(VIBRATION_PACKAGE_URL);
             EditorGUILayout.Space(5);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
-            if (isPackageInstalled)
+            if (_isInstalled)
             {
                 EditorGUILayout.LabelField("Status: Installed", _installedStyle);
                 EditorGUILayout.Space(5);
@@ -127,6 +133,8 @@ namespace ProjectCore.Module.Editor
             {
                 if (success)
                 {
+                    _isInstalled = true;
+                    
                     Debug.Log("Mobile Vibration 패키지 설치 완료");
                     
                     EditorUtility.DisplayDialog("Installation Complete", 
@@ -135,6 +143,8 @@ namespace ProjectCore.Module.Editor
                 }
                 else
                 {
+                    _isInstalled = false;
+                    
                     EditorUtility.DisplayDialog("Installation Failed", 
                         "Failed to install Mobile Vibration package. Please try again or install manually.", 
                         "OK");

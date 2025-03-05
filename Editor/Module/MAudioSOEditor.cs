@@ -16,8 +16,10 @@ namespace ProjectCore.Module.Editor
         private GUIStyle _installedStyle;
         private GUIStyle _notInstalledStyle;
         private GUIStyle _hintStyle;
+        
         private bool _isInstalling;
         private bool _isInit;
+        private bool _isInstalled;
 
         private void InitializeStyles()
         {
@@ -59,17 +61,20 @@ namespace ProjectCore.Module.Editor
 
             _isInit = true;
         }
+
+        private void OnEnable()
+        {
+            _isInstalled = GitPackageValidator.IsInstallValidation(JSAM_PACKAGE_URL);
+        }
         
         public override void OnInspectorGUI()
         {
             InitializeStyles();
-            
-            var isPackageInstalled = GitPackageValidator.IsInstallValidation(JSAM_PACKAGE_URL);
 
             EditorGUILayout.Space(5);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
-            if (isPackageInstalled)
+            if (_isInstalled)
             {
                 EditorGUILayout.LabelField("Status: Installed", _installedStyle);
                 EditorGUILayout.Space(5);
@@ -147,10 +152,15 @@ namespace ProjectCore.Module.Editor
             {
                 if (success)
                 {
+                    _isInstalled = true;
                     Debug.Log("JSAM Audio Manager 설치 완료");
                     EditorUtility.DisplayDialog("Installation Complete", 
                         "JSAM Audio Manager has been installed successfully. Please go to Window/JSAM/AudioLibrary to create and configure the settings.", 
                         "OK");
+                }
+                else
+                {
+                    _isInstalled = false;
                 }
                 
                 _isInstalling = false;
