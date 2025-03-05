@@ -15,7 +15,7 @@ namespace ProjectCore.Module
         private ProjectInitializeLifetimeScope _initializeScope;
 
         [Space] [SerializeField] private bool _autoInitialize = true;
-
+        
 #if UNITY_EDITOR
         private const string RESOURCE_PATH = "Initializer";
         

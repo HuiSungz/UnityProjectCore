@@ -10,9 +10,7 @@ namespace ProjectCore
     {
         #region Fields
 
-        [Header("Global Modular")] 
-        [SerializeField] private ProjectModules _projectModules;
-        
+        private ProjectModules _projectModules;
         private IContainerBuilder _cachedBuilder;
 
         #endregion
@@ -21,6 +19,20 @@ namespace ProjectCore
         {
             gameObject.name = "[GLOBAL LIFETIME SCOPE]";
             _cachedBuilder = builder;
+
+            LoadProjectModules();
+            SetupProject();
+        }
+
+        private void LoadProjectModules()
+        {
+            _projectModules = Resources.Load<ProjectModules>("Project Modules");
+            
+            if (!_projectModules)
+            {
+                Debug.LogError("Project Modules 에셋을 Resources 폴더에서 찾을 수 없습니다. " +
+                               "패키지나 어셈블리 내의 Resources 폴더도 확인하세요.");
+            }
         }
 
         private void SetupProject()

@@ -40,13 +40,13 @@ namespace ProjectCore.Editor
             }
             else
             {
-                if (!Directory.Exists(GlobalAccess.MainAssetPath))
+                if (!Directory.Exists(GlobalAccess.MainAssetResourcePath))
                 {
-                    Directory.CreateDirectory(GlobalAccess.MainAssetPath);
+                    Directory.CreateDirectory(GlobalAccess.MainAssetResourcePath);
                     AssetDatabase.Refresh();
                 }
                 
-                CreateAsset(GlobalAccess.MainAssetPath, true);
+                CreateAsset(GlobalAccess.MainAssetResourcePath, true);
             }
         }
         
@@ -66,7 +66,7 @@ namespace ProjectCore.Editor
 
             if (string.IsNullOrEmpty(selectionPath) || !Directory.Exists(selectionPath))
             {
-                selectionPath = GlobalAccess.MainAssetPath;
+                selectionPath = GlobalAccess.MainAssetResourcePath;
             }
 
             CreateAsset(selectionPath, true);
@@ -573,13 +573,13 @@ namespace ProjectCore.Editor
                 }
                 
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Space(10);
+                GUILayout.Space(15);
                 
                 EditorGUILayout.BeginVertical();
                 Editor.OnInspectorGUI();
                 EditorGUILayout.EndVertical();
                 
-                GUILayout.Space(10);
+                GUILayout.Space(15);
                 EditorGUILayout.EndHorizontal();
             }
 
