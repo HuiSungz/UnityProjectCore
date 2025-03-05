@@ -16,32 +16,6 @@ namespace ProjectCore.Module
 
         [Space] [SerializeField] private bool _autoInitialize = true;
         
-#if UNITY_EDITOR
-        private const string RESOURCE_PATH = "Initializer";
-        
-        private void OnValidate()
-        {
-            if (!_initializeScope)
-            {
-                LoadInitializerPrefab();
-            }
-        }
-
-        private void LoadInitializerPrefab()
-        {
-            var prefab = Resources.Load<ProjectInitializeLifetimeScope>(RESOURCE_PATH);
-            if (prefab)
-            {
-                _initializeScope = prefab;
-
-                EditorUtility.SetDirty(this);
-            }
-            else
-            {
-                Debug.LogError($"Failed to find Initializer prefab in Resources folder at path: {RESOURCE_PATH}");
-            }
-        }
-
         public override void ConfigureInitialize()
         {
             if (!_autoInitialize)
@@ -66,6 +40,32 @@ namespace ProjectCore.Module
 
                 var prefabScope = Instantiate(_initializeScope);
                 prefabScope.name = Name;
+            }
+        }
+        
+#if UNITY_EDITOR
+        private const string RESOURCE_PATH = "Initializer";
+        
+        private void OnValidate()
+        {
+            if (!_initializeScope)
+            {
+                LoadInitializerPrefab();
+            }
+        }
+
+        private void LoadInitializerPrefab()
+        {
+            var prefab = Resources.Load<ProjectInitializeLifetimeScope>(RESOURCE_PATH);
+            if (prefab)
+            {
+                _initializeScope = prefab;
+
+                EditorUtility.SetDirty(this);
+            }
+            else
+            {
+                Debug.LogError($"Failed to find Initializer prefab in Resources folder at path: {RESOURCE_PATH}");
             }
         }
 #endif

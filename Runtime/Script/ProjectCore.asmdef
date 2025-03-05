@@ -3,7 +3,9 @@
     "rootNamespace": "ProjectCore",
     "references": [
         "GUID:0f00356e2209e4b99b3d264d3e06ece8",
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:4f682e06dbb3e624faedad9cc27106cc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

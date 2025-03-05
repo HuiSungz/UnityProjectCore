@@ -134,7 +134,14 @@ namespace ProjectCore.Module.Editor
                 if (success)
                 {
                     _isInstalled = true;
-                    
+                    if (!SymbolUtility.HasSymbol(GlobalAccess.SYMBOL_INSTALLED_HAPTIC))
+                    {
+                        EditorApplication.delayCall += () =>
+                        {
+                            SymbolUtility.AddSymbolForTarget(GlobalAccess.SYMBOL_INSTALLED_HAPTIC, BuildTargetGroup.iOS);
+                            SymbolUtility.AddSymbolForTarget(GlobalAccess.SYMBOL_INSTALLED_HAPTIC, BuildTargetGroup.Android);
+                        };
+                    }
                     Debug.Log("Mobile Vibration 패키지 설치 완료");
                     
                     EditorUtility.DisplayDialog("Installation Complete", 
