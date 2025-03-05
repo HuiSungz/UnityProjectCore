@@ -1,0 +1,14 @@
+
+using ProjectCore.Editor;
+using ProjectCore.Module;
+using UnityEngine;
+using VContainer;
+
+[CreateAssetMenu(fileName = "[ScriptName] Injectable", menuName = GlobalAccess.CreateAssetMenuSOInjectablePath + "[ScriptName]", order = -999)]
+public class [ScriptName] : BaseInjectableSO
+{
+    public override void ConfigureRegister(IContainerBuilder globalBuilder)
+    {
+        
+    }
+}

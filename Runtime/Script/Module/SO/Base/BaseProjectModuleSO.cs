@@ -1,8 +1,11 @@
 
 using UnityEngine;
 
-public abstract class BaseProjectModuleSO : ScriptableObject
+namespace ProjectCore.Module
 {
-    public abstract string Name { get; }
-    public abstract void ConfigureInitialize();
+    public abstract class BaseProjectModuleSO : ScriptableObject
+    {
+        public abstract string Name { get; }
+        public abstract void ConfigureInitialize();
+    }
 }

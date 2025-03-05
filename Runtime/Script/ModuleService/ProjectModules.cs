@@ -1,45 +1,48 @@
 
+
+using ProjectCore.Module;
 using UnityEngine;
 
-public class ProjectModules : BaseDescriptionSO
+namespace ProjectCore
 {
-    #region Fields
-
-    [SerializeField] private BaseProjectModuleSO[] _projectModules;
-
-    public BaseProjectModuleSO[] Modules => _projectModules;
-
-    #endregion
-    
-    
-
-    #region Public Methods
-
-    public void Initialize()
+    public sealed class ProjectModules : BaseDescriptionSO
     {
-        foreach (var module in _projectModules)
-        {
-            if (!module)
-            {
-                continue;
-            }
-            
-            module.ConfigureInitialize();
-        }
-    }
+        #region Fields
 
-    public T GetModule<T>() where T : BaseProjectModuleSO
-    {
-        foreach (var module in _projectModules)
+        [SerializeField] 
+        private BaseProjectModuleSO[] _projectModules;
+        public BaseProjectModuleSO[] Modules => _projectModules;
+
+        #endregion
+
+        #region Public Methods
+
+        public void ConfigureInitialize()
         {
-            if (module && module is T convertedModule)
+            foreach (var module in _projectModules)
             {
-                return convertedModule;
+                if (!module)
+                {
+                    continue;
+                }
+
+                module.ConfigureInitialize();
             }
         }
 
-        return null;
-    }
+        public T GetModule<T>() where T : BaseProjectModuleSO
+        {
+            foreach (var module in _projectModules)
+            {
+                if (module && module is T convertedModule)
+                {
+                    return convertedModule;
+                }
+            }
 
-    #endregion
+            return null;
+        }
+
+        #endregion
+    }
 }
