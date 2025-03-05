@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEditor;
 using System.IO;
@@ -11,35 +12,18 @@ namespace ProjectCore.Module.Editor
         private const string RESOURCE_PATH = "Initializer";
         private SerializedProperty _initializeScopeProp;
         private SerializedProperty _autoInitializeProp;
-        
-        private bool _initialized;
 
         private void OnEnable()
         {
-            if (!target)
-            {
-                return;
-            }
-            
-            CheckAndCreateVContainerSettings();
-            
-            _initialized = true;
-        }
-        
-        private void SafeInitializeProperties()
-        {
-            if (!target)
-            {
-                return;
-            }
-            
             _initializeScopeProp = serializedObject.FindProperty("_initializeScope");
             _autoInitializeProp = serializedObject.FindProperty("_autoInitialize");
-                
-            if (_initializeScopeProp != null && !_initializeScopeProp.objectReferenceValue)
+            
+            if (!_initializeScopeProp.objectReferenceValue)
             {
                 LoadInitializerPrefab();
             }
+            
+            CheckAndCreateVContainerSettings();
         }
 
         private void LoadInitializerPrefab()
@@ -68,58 +52,48 @@ namespace ProjectCore.Module.Editor
             {
                 existingSettings = AssetDatabase.LoadAssetAtPath<VContainerSettings>(assetPath);
             }
-
-            if (existingSettings)
-            {
-                return;
-            }
             
-            if (!Directory.Exists(folderPath))
+            if (!existingSettings)
             {
-                Directory.CreateDirectory(folderPath);
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                    AssetDatabase.Refresh();
+                }
+                
+                var settings = CreateInstance<VContainerSettings>();
+                settings.RootLifetimeScope = Resources.Load<LifetimeScope>("GlobalLifetimeScope");
+                if (!settings.RootLifetimeScope)
+                {
+                    Debug.LogWarning("GlobalLifetimeScope prefab not found in Resources folder.");
+                }
+                
+                AssetDatabase.CreateAsset(settings, assetPath);
+                AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
+                
+                Debug.Log($"VContainerSettings가 '{assetPath}'에 자동으로 생성되었습니다.");
             }
-            
-            var settings = CreateInstance<VContainerSettings>();
-            
-            AssetDatabase.CreateAsset(settings, assetPath);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-            
-            Debug.Log($"VContainerSettings가 '{assetPath}'에 자동으로 생성되었습니다.");
         }
 
         public override void OnInspectorGUI()
         {
-            if (!_initialized)
-            {
-                SafeInitializeProperties();
-                _initialized = true;
-            }
-            
             serializedObject.Update();
+
+            EditorGUILayout.PropertyField(_initializeScopeProp);
             
-            if (_initializeScopeProp != null)
+            if (!_initializeScopeProp.objectReferenceValue)
             {
-                EditorGUILayout.PropertyField(_initializeScopeProp);
+                EditorGUILayout.HelpBox("Initializer prefab is not assigned. Press the button below to load it from Resources.", MessageType.Warning);
                 
-                if (!_initializeScopeProp.objectReferenceValue)
+                if (GUILayout.Button("Load Initializer Prefab"))
                 {
-                    EditorGUILayout.HelpBox("Initializer prefab is not assigned. Press the button below to load it from Resources.", MessageType.Warning);
-                    
-                    if (GUILayout.Button("Load Initializer Prefab"))
-                    {
-                        LoadInitializerPrefab();
-                    }
+                    LoadInitializerPrefab();
                 }
             }
             
             EditorGUILayout.Space();
-            
-            if (_autoInitializeProp != null)
-            {
-                EditorGUILayout.PropertyField(_autoInitializeProp);
-            }
+            EditorGUILayout.PropertyField(_autoInitializeProp);
 
             serializedObject.ApplyModifiedProperties();
         }
