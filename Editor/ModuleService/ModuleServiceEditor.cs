@@ -50,7 +50,7 @@ namespace ProjectCore.Editor
             }
         }
         
-        [MenuItem(CreateAssetMenuPath)]
+        [MenuItem(CreateAssetMenuPath, priority = 0)]
         public static void CreateAssetFromMenu()
         {
             var projectModules = GetProjectModules();
