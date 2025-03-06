@@ -1,8 +1,5 @@
 
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace ProjectCore.Module
 {
@@ -33,32 +30,5 @@ namespace ProjectCore.Module
                 Debug.LogError($"Initializer prefab is not set in {Name}.");
             }
         }
-        
-#if UNITY_EDITOR
-        private const string RESOURCE_PATH = "Initializer";
-        
-        private void OnValidate()
-        {
-            if (!_initializeScope)
-            {
-                LoadInitializerPrefab();
-            }
-        }
-
-        private void LoadInitializerPrefab()
-        {
-            var prefab = Resources.Load<ProjectInitializeLifetimeScope>(RESOURCE_PATH);
-            if (prefab)
-            {
-                _initializeScope = prefab;
-
-                EditorUtility.SetDirty(this);
-            }
-            else
-            {
-                Debug.LogError($"Failed to find Initializer prefab in Resources folder at path: {RESOURCE_PATH}");
-            }
-        }
-#endif
     }
 }

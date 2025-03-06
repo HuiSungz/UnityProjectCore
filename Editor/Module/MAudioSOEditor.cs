@@ -64,7 +64,7 @@ namespace ProjectCore.Module.Editor
 
         private void OnEnable()
         {
-            _isInstalled = GitPackageValidator.IsInstallValidation(JSAM_PACKAGE_URL);
+            _isInstalled = PackageValidator.IsInstallValidation(JSAM_PACKAGE_URL);
         }
         
         public override void OnInspectorGUI()

@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 namespace ProjectCore.Module
 {
     [ProjectModule("PlatformService (SDKs)")]

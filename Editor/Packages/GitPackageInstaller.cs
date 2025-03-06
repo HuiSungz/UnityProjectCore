@@ -21,7 +21,7 @@ namespace ProjectCore.Editor
             _onComplete = onComplete;
             
             // 이미 설치되어 있는지 확인
-            if (GitPackageValidator.IsInstallValidation(packageUrl))
+            if (PackageValidator.IsInstallValidation(packageUrl))
             {
                 Debug.Log($"패키지가 이미 설치되어 있습니다: {packageUrl}");
                 _onComplete?.Invoke(true);
