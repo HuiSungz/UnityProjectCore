@@ -62,7 +62,7 @@ namespace ProjectCore.Module.Editor
 
         private void OnEnable()
         {
-            _isInstalled = GitPackageValidator.IsInstallValidation(VIBRATION_PACKAGE_URL);
+            _isInstalled = PackageValidator.IsInstallValidation(VIBRATION_PACKAGE_URL);
         }
         
         public override void OnInspectorGUI()

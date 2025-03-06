@@ -49,7 +49,7 @@ namespace ProjectCore.Module.Editor
         {
             InitializeStyles();
             
-            var isPackageInstalled = GitPackageValidator.IsInstallValidation(PACKAGE_NAME);
+            var isPackageInstalled = PackageValidator.IsInstallValidation(PACKAGE_NAME);
             EditorGUILayout.Space(5);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             if (isPackageInstalled)
