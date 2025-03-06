@@ -1,15 +1,28 @@
 
 using System;
 
+using UnityEngine;
+
 namespace ProjectCore.Preference
 {
     public static class Prefs
     {
+        private static bool _isInitialized;
+        public static bool Initialized => _isInitialized;
+        
         #region Initialize
 
         public static void Initialize(PreferenceSettingSO preferenceSetting)
         {
+            if (_isInitialized)
+            {
+                Debug.LogWarning("PreferenceService is already initialized.");
+                return;
+            }
+            
             PreferenceController.Initialize(preferenceSetting);
+            
+            _isInitialized = true;
         }
 
         #endregion

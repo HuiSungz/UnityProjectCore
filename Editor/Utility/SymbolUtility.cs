@@ -34,7 +34,7 @@ namespace ProjectCore.Editor
 
         #region Unity Event Methods
 
-        [MenuItem("ActionFit/Symbol Editor", priority = 12)]
+        [MenuItem("ActionFit/Utility/Symbol Editor", priority = 998)]
         public static void ShowWindow()
         {
             var window = GetWindow<SymbolUtility>("Symbol Editor");

@@ -12,7 +12,7 @@ namespace ProjectCore.Editor
         /// <summary>
         /// 매니페스트 파일에서 중복된 스코프 정의를 제거합니다.
         /// </summary>
-        [MenuItem("ActionFit/Manifest Remove Duplicate Scope Def", priority = 999)]
+        [MenuItem("ActionFit/Utility/Manifest Remove Duplicate Scope Def", priority = 999)]
         public static void RemoveDuplicateScopeDefinitions()
         {
             var manifestPath = Path.Combine(Application.dataPath, "../Packages/manifest.json");
