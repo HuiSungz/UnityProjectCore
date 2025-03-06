@@ -1,5 +1,4 @@
 
-
 using UnityEngine;
 
 namespace ProjectCore.Module
@@ -12,6 +11,7 @@ namespace ProjectCore.Module
         private static volatile T _sInstance;
 
         protected bool IsInitialized;
+        public virtual bool Initialized => IsInitialized;
 
         public static T Ref
         {
@@ -31,7 +31,13 @@ namespace ProjectCore.Module
         }
 
         #endregion
-        
-        
+
+        protected void OnEnable()
+        {
+            lock (Lock)
+            {
+                _sInstance = this as T;
+            }
+        }
     }
 }
