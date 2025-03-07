@@ -21,7 +21,12 @@ namespace ProjectCore
             _cachedBuilder = builder;
 
             LoadProjectModules();
-            SetupProject();
+            LoadInjectModules();
+        }
+
+        private void Start()
+        {
+            _projectModules.ConfigureInitialize();
         }
 
         private void LoadProjectModules()
@@ -33,13 +38,12 @@ namespace ProjectCore
                 Debug.LogError("Project Modules 에셋을 Resources 폴더에서 찾을 수 없습니다. " +
                                "패키지나 어셈블리 내의 Resources 폴더도 확인하세요.");
             }
+            
+            _cachedBuilder.RegisterInstance(_projectModules);
         }
 
-        private void SetupProject()
+        private void LoadInjectModules()
         {
-            _cachedBuilder.RegisterInstance(_projectModules);
-            _projectModules.ConfigureInitialize();
-
             var injectModule = _projectModules.GetModule<MGlobalInjectableSO>();
             if (!injectModule)
             {

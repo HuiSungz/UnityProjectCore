@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace ProjectCore
+namespace ProjectCore.Base
 {
     public abstract class BaseDescriptionSO : ScriptableObject
     {

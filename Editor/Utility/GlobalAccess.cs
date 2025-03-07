@@ -11,6 +11,7 @@ namespace ProjectCore.Editor
         public const string ToolBarMenuRoot = "ActionFit/";
         
         public const string CreateAssetMenuSOInjectablePath = "ActionFit/Injectable/";
+        public const string CreateAssetMenuSOWorkflowPath = "ActionFit/Workflow/";
         
         // Define Symbol
         public const string SYMBOL_INSTALLED_HAPTIC = "PROJECT_INSTALLED_HAPTIC";

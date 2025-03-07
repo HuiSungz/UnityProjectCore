@@ -29,7 +29,7 @@ namespace ProjectCore.Module.Editor
 
         private void LoadInitializerPrefab()
         {
-            var prefab = Resources.Load<ProjectInitializeLifetimeScope>(RESOURCE_PATH);
+            var prefab = Resources.Load<GameObject>(RESOURCE_PATH);
             if (prefab)
             {
                 _initializeScopeProp.objectReferenceValue = prefab;

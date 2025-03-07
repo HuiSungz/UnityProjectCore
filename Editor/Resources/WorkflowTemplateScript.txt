@@ -1,0 +1,16 @@
+
+using Cysharp.Threading.Tasks;
+using ProjectCore.Editor;
+using ProjectCore.Module;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "[ScriptName] Workflow", menuName = GlobalAccess.CreateAssetMenuSOWorkflowPath + "[ScriptName]")]
+// Setup your workflow order(Sequence) here.
+[Workflow()]
+public class [ScriptName] : ProjectWorkflowSO
+{
+    public async override UniTask<bool> FlowAsync()
+    {
+        return true;
+    }
+}

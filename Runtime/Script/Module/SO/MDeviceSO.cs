@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ProjectCore.Module
 {
-    [ProjectModule("Device Setting", true, 998)]
+    [ProjectModule("Device Setting", true, 900)]
     public sealed class MDeviceSO : BaseProjectModuleSO
     {
         #region Fields & Properties

@@ -8,8 +8,8 @@ namespace ProjectCore.Module
     {
         public override string Name => "Initializer";
 
-        [Header("Take the lifetime scope from the project.")] [SerializeField]
-        private ProjectInitializeLifetimeScope _initializeScope;
+        [Header("Take the lifetime scope from the project.")] 
+        [SerializeField] private GameObject _initializeScope;
 
         [Space] [SerializeField] private bool _autoInitialize = true;
         

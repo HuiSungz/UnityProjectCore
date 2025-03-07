@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ProjectCore.Module
 {
-    [ProjectModule("Preference (Save)", true, 997)]
+    [ProjectModule("Preference (Save)", true, 980)]
     public class MPreferenceServiceSO : BaseProjectModuleSO
     {
         [SerializeField] private PreferenceSettingSO _setting;
