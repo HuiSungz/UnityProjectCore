@@ -14,70 +14,78 @@ namespace ProjectCore.Module.Editor
         private const string BASE_ASSET_PATH = "Assets/ProjectSettings/Platform";
         
         #endregion
-        
+
+#if SDK_INSTALLED_FIREBASE
         #region Firebase
         
         [MenuItem(BASE_MENU_PATH1 + "/Firebase")]
         private static void CreateFirebaseSOFromMainMenu()
         {
-            CreateServiceSO<PlatformFirebaseSO>("PlatformFirebaseSO", "SDK_INSTALLED_FIREBASE", "Firebase");
+            CreateServiceSO<PlatformFirebaseSO>("PlatformFirebaseSO", "Firebase");
         }
         
         [MenuItem(BASE_MENU_PATH2 + "/Firebase", priority = -90)]
         private static void CreateFirebaseSOFromContextMenu()
         {
-            CreateServiceSO<PlatformFirebaseSO>("PlatformFirebaseSO", "SDK_INSTALLED_FIREBASE", "Firebase");
+            CreateServiceSO<PlatformFirebaseSO>("PlatformFirebaseSO", "Firebase");
         }
         
         #endregion
+#endif
         
+#if SDK_INSTALLED_GAMEANALYTICS
         #region GameAnalytics
         
         [MenuItem(BASE_MENU_PATH1 + "/GameAnalytics")]
         private static void CreateGameAnalyticsSOFromMainMenu()
         {
-            CreateServiceSO<PlatformGameAnalyticsSO>("PlatformGameAnalyticsSO", "SDK_INSTALLED_GAMEANALYTICS", "GameAnalytics");
+            CreateServiceSO<PlatformGameAnalyticsSO>("PlatformGameAnalyticsSO", "GameAnalytics");
         }
         
         [MenuItem(BASE_MENU_PATH2 + "/GameAnalytics", priority = -91)]
         private static void CreateGameAnalyticsSOFromContextMenu()
         {
-            CreateServiceSO<PlatformGameAnalyticsSO>("PlatformGameAnalyticsSO", "SDK_INSTALLED_GAMEANALYTICS", "GameAnalytics");
+            CreateServiceSO<PlatformGameAnalyticsSO>("PlatformGameAnalyticsSO", "GameAnalytics");
         }
         
         #endregion
+#endif
         
+#if SDK_INSTALLED_APPLOVINMAX
         #region AppLovin MAX
         
         [MenuItem(BASE_MENU_PATH1 + "/AppLovin MAX")]
         private static void CreateMaxSOFromMainMenu()
         {
-            CreateServiceSO<PlatformMaxSO>("PlatformMaxSO", "SDK_INSTALLED_APPLOVINMAX", "AppLovin MAX");
+            CreateServiceSO<PlatformMaxSO>("PlatformMaxSO", "AppLovin MAX");
         }
         
         [MenuItem(BASE_MENU_PATH2 + "/AppLovin MAX", priority = -92)]
         private static void CreateMaxSOFromContextMenu()
         {
-            CreateServiceSO<PlatformMaxSO>("PlatformMaxSO", "SDK_INSTALLED_APPLOVINMAX", "AppLovin MAX");
+            CreateServiceSO<PlatformMaxSO>("PlatformMaxSO", "AppLovin MAX");
         }
         
         #endregion
+#endif
         
+#if SDK_INSTALLED_SINGULAR
         #region Singular
         
         [MenuItem(BASE_MENU_PATH1 + "/Singular")]
         private static void CreateSingularSOFromMainMenu()
         {
-            CreateServiceSO<PlatformSingularSO>("PlatformSingularSO", "SDK_INSTALLED_SINGULAR", "Singular");
+            CreateServiceSO<PlatformSingularSO>("PlatformSingularSO", "Singular");
         }
         
         [MenuItem(BASE_MENU_PATH2 + "/Singular", priority = -93)]
         private static void CreateSingularSOFromContextMenu()
         {
-            CreateServiceSO<PlatformSingularSO>("PlatformSingularSO", "SDK_INSTALLED_SINGULAR", "Singular");
+            CreateServiceSO<PlatformSingularSO>("PlatformSingularSO", "Singular");
         }
         
         #endregion
+#endif
         
         #region Helper Methods
         
@@ -86,33 +94,9 @@ namespace ProjectCore.Module.Editor
         /// </summary>
         /// <typeparam name="T">생성할 ScriptableObject 타입</typeparam>
         /// <param name="fileName">파일 이름</param>
-        /// <param name="sdkSymbol">SDK 설치 심볼 이름</param>
         /// <param name="serviceName">서비스 이름</param>
-        private static void CreateServiceSO<T>(string fileName, string sdkSymbol, string serviceName) where T : ScriptableObject
+        private static void CreateServiceSO<T>(string fileName, string serviceName) where T : ScriptableObject
         {
-            bool isSDKInstalled = sdkSymbol == "SDK_INSTALLED_FIREBASE";
-            
-#if SDK_INSTALLED_GAMEANALYTICS
-            if (sdkSymbol == "SDK_INSTALLED_GAMEANALYTICS")
-                isSDKInstalled = true;
-#endif
-            
-#if SDK_INSTALLED_APPLOVINMAX
-            if (sdkSymbol == "SDK_INSTALLED_APPLOVINMAX")
-                isSDKInstalled = true;
-#endif
-            
-#if SDK_INSTALLED_SINGULAR
-            if (sdkSymbol == "SDK_INSTALLED_SINGULAR")
-                isSDKInstalled = true;
-#endif
-            
-            if (!isSDKInstalled)
-            {
-                Debug.LogWarning($"{serviceName} SDK가 설치되지 않았습니다. {sdkSymbol} 심볼을 정의해주세요.");
-                return;
-            }
-            
             string assetPath = $"{BASE_ASSET_PATH}/{fileName}.asset";
             
             // 기존 에셋이 있는지 확인
