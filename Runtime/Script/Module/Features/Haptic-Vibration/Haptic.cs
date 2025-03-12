@@ -1,15 +1,41 @@
 
+using UnityEngine;
+
 namespace ProjectCore.Module
 {
     public static class Haptic
     {
+        private const string HapticKey = "UserHaptic";
+        
         public static bool Initialized { get; private set; }
-        public static bool Using { get; set; } = true;
+
+        private static bool _using;
+
+        public static bool Using
+        {
+            get
+            {
+                if (!Initialized)
+                {
+                    _using = PlayerPrefs.GetInt(HapticKey, 1) == 1;
+                }
+
+                return _using;
+            }
+            set
+            {
+                _using = value;
+                
+                PlayerPrefs.SetInt(HapticKey, value ? 1 : 0);
+                PlayerPrefs.Save();
+            }
+        }
 
         public static void Initialize()
         {
 #if UNITY_ANDROID && PROJECT_INSTALLED_HAPTIC || UNITY_IOS && PROJECT_INSTALLED_HAPTIC
             Vibration.Init();
+            _using = PlayerPrefs.GetInt(HapticKey, 1) == 1;
             Initialized = true;
 #endif
         }
