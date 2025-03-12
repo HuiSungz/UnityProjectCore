@@ -52,7 +52,11 @@ namespace ProjectCore.Preference
         private T SerializedSavedValue
         {
             get => _value;
-            set => _value = value;
+            set 
+            {
+                _value = value;
+                _visualValue = value;
+            }
         }
 
         #endregion
