@@ -52,6 +52,8 @@ namespace ProjectCore.Monetize
         #region Abstract
 
         protected abstract UniTask<bool> InitializeProviderAsync();
+
+        public abstract void ShowAppOpen();
         
         public abstract void ShowBanner();
         public abstract void HideBanner();

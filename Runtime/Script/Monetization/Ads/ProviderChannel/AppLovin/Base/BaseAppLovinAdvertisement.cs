@@ -53,7 +53,7 @@ namespace ProjectCore.Monetize
             {
                 return;
             }
-            
+
             SafeCancelAndDispose();
             _cts = new CancellationTokenSource();
             _isDisposed = false;

@@ -112,11 +112,6 @@ namespace ProjectCore.Monetize
             
             CallEventInMainThread(() => _rewardedCallback.Invoke(isSuccess));
             _waitingForRewardVideoCallback = false;
-            
-            if(!isSuccess)
-            {
-                RequestRewardVideo();
-            }
         }
 
         private static bool ValidateRequestRewardVideo(AdProviderType providerType)

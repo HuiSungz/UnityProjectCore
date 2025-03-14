@@ -52,6 +52,8 @@ namespace ProjectCore.Monetize
         }
 
         #endregion
+        
+        public override void ShowAppOpen() { }
 
         #region Banner
 
@@ -95,6 +97,7 @@ namespace ProjectCore.Monetize
 
         public override void ShowInterstitial(AdvertisementCallback callback)
         {
+            ADS.AppOpenAvailable = false;
             _interstitial?.Show(GetInterstitialUnitId(), OnSuccessInterstitial, OnFailureInterstitial);
         }
 
@@ -108,6 +111,7 @@ namespace ProjectCore.Monetize
                     _isInterstitialEventRegistered = false;
                 }
                 
+                ADS.AppOpenAvailable = true;
                 ADSCallback.RaiseAdDisplayed(ProviderType, AdvertisementType.Interstitial);
                 ADS.ExecuteInterstitialCallback(true);
                 RequestInterstitial();
@@ -122,6 +126,7 @@ namespace ProjectCore.Monetize
                 _isInterstitialEventRegistered = false;
             }
             
+            ADS.AppOpenAvailable = true;
             ADS.ExecuteInterstitialCallback(false);
             RequestInterstitial();
         }
@@ -148,6 +153,7 @@ namespace ProjectCore.Monetize
 
         public override void ShowRewardedVideo(AdvertisementCallback callback)
         {
+            ADS.AppOpenAvailable = false;
             _reward?.Show(GetRewardedVideoUnitId(), OnSuccessRewardedVideo, OnFailureRewardedVideo);
         }
         
@@ -161,6 +167,7 @@ namespace ProjectCore.Monetize
                     _isRewardEventRegistered = false;
                 }
                 
+                ADS.AppOpenAvailable = true;
                 ADSCallback.RaiseAdDisplayed(ProviderType, AdvertisementType.Rewarded);
                 ADS.ExecuteRewardVideoCallback(true);
                 RequestRewardedVideo();
@@ -175,6 +182,7 @@ namespace ProjectCore.Monetize
                 _isRewardEventRegistered = false;
             }
             
+            ADS.AppOpenAvailable = true;
             ADS.ExecuteRewardVideoCallback(false);
             RequestRewardedVideo();
         }

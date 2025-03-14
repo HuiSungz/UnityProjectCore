@@ -19,6 +19,8 @@ namespace ProjectCore.Monetize
         public static event Action<AdProviderType, AdvertisementType> OnAdDisplayed;
         // 광고 종료 이벤트
         public static event Action<AdProviderType, AdvertisementType> OnAdClosed;
+        // 광고 앱오픈 종료 이벤트
+        public static event Action<AdProviderType> OnAppOpenClosed;
         
         // 로딩 관련 이벤트
         public static event Action OnDelayInvokeStarted;
@@ -57,7 +59,7 @@ namespace ProjectCore.Monetize
             try
             {
                 OnAdDisplayed?.Invoke(providerType, adType);
-                if (adType is AdvertisementType.Interstitial or AdvertisementType.Rewarded)
+                if (adType is AdvertisementType.Interstitial)
                 {
                     ADS.ResetInterstitialDelayTime();
                 }
@@ -73,7 +75,7 @@ namespace ProjectCore.Monetize
             try
             {
                 OnAdClosed?.Invoke(providerType, adType);
-                if (adType is AdvertisementType.Interstitial or AdvertisementType.Rewarded)
+                if (adType is AdvertisementType.Interstitial)
                 {
                     ADS.ResetInterstitialDelayTime();
                 }
@@ -81,6 +83,19 @@ namespace ProjectCore.Monetize
             catch (Exception ex)
             {
                 Verbose.E($"[ADSCallback] Error in OnAdClosed event: {ex}");
+            }
+        }
+        
+        internal static void RaiseAppOpenClosed(AdProviderType providerType)
+        {
+            try
+            {
+                OnAppOpenClosed?.Invoke(providerType);
+                ADS.ResetAppOpenDelayTime();
+            }
+            catch (Exception ex)
+            {
+                Verbose.E($"[ADSCallback] Error in OnAppOpenClosed event: {ex}");
             }
         }
 
