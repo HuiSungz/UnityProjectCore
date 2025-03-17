@@ -60,7 +60,7 @@ namespace ProjectCore.Monetize
         
         private void OnAdRevenuePaidEvent(string unitId, MaxSdkBase.AdInfo adInfo)
         {
-            // TODO Analytics
+            ADSCallback.RaiseAdRevenueAppLovin(adInfo, AdvertisementType.Banner);
         }
     }
 #endif
