@@ -15,6 +15,28 @@ namespace ProjectCore.Monetize
 
         #endregion
 
+        public static void ManuallyInitialize()
+        {
+            _adProviders = GetAdProviders();
+            _lastInterstitialTime = Time.time + _setting.InterstitialStartDelay;
+            _advertisementProviders = new Dictionary<AdProviderType, AdProvider>();
+            
+            InstantiateDispatcher();
+
+            foreach (var adProvider in _adProviders)
+            {
+                if (!IsProviderEnabled(adProvider.ProviderType))
+                {
+                    continue;
+                }
+                
+                adProvider.LinkSettings(Monetization.Settings);
+                _advertisementProviders.Add(adProvider.ProviderType, adProvider);
+            }
+
+            InitializeProviders();
+        }
+
         private static void InitializeInternal(MonetizationSettingSO monetizationSetting)
         {
             _adProviders = GetAdProviders();

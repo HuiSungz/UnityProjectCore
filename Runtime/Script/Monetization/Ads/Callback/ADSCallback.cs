@@ -1,6 +1,7 @@
 
 using System;
 using ProjectCore.Utilities;
+using UnityEngine.Purchasing;
 
 namespace ProjectCore.Monetize
 {
@@ -13,7 +14,7 @@ namespace ProjectCore.Monetize
 
 #if SDK_INSTALLED_ADMOB
         public static event Action<GoogleMobileAds.Api.AdValue> OnAdRevenueAdMob;
-        public static void RaiseAdRevenueAdMob(GoogleMobileAds.Api.AdValue adValue)
+        internal static void RaiseAdRevenueAdMob(GoogleMobileAds.Api.AdValue adValue)
         {
             try
             {
@@ -28,7 +29,7 @@ namespace ProjectCore.Monetize
 
 #if SDK_INSTALLED_APPLOVINMAX
         public static event Action<MaxSdkBase.AdInfo, AdvertisementType> OnAdRevenueAppLovin;
-        public static void RaiseAdRevenueAppLovin(MaxSdkBase.AdInfo adInfo, AdvertisementType advertisementType)
+        internal static void RaiseAdRevenueAppLovin(MaxSdkBase.AdInfo adInfo, AdvertisementType advertisementType)
         {
             try
             {

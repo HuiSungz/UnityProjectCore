@@ -12,6 +12,11 @@ namespace ProjectCore.PlatformAnalysis
         private AnalysisSettings _settings;
 
         #endregion
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
         
         public void Initialize(AnalysisSettings settings)
         {
@@ -25,7 +30,7 @@ namespace ProjectCore.PlatformAnalysis
 
             if (settings.AutoSendIAPRevenue)
             {
-                
+                IAPCallback.OnPurchaseCompletedWithArgs += RevenueIAPCallback;
             }
         }
 
@@ -39,7 +44,7 @@ namespace ProjectCore.PlatformAnalysis
 
             if (_settings.AutoSendIAPRevenue)
             {
-                
+                IAPCallback.OnPurchaseCompletedWithArgs -= RevenueIAPCallback;
             }
         }
 

@@ -13,6 +13,7 @@ namespace ProjectCore.Module
         {
             Monetization.Configure(_settings);
             ADS.Configure(_settings);
+            IAP.Configure(_settings);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace ProjectCore.Monetize
 
         protected override void OnAdRevenuePaidEvent(string unitId, MaxSdkBase.AdInfo adInfo)
         {
-            // TODO Analytics
+            ADSCallback.RaiseAdRevenueAppLovin(adInfo, AdvertisementType.Interstitial);
         }
     }
 #endif
