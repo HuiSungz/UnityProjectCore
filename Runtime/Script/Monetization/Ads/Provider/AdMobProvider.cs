@@ -4,6 +4,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Common;
+using ProjectCore.PlatformService;
 using ProjectCore.Utilities;
 
 namespace ProjectCore.Monetize
@@ -154,10 +155,7 @@ namespace ProjectCore.Monetize
 
         private void HandleAppOpenAdPaid(AdValue adValue)
         {
-            var estimated = adValue.Precision.ToString();
-            var currencyCode = adValue.CurrencyCode;
-            var revenue = adValue.Value / 1000000d;
-            // TODO Analytics
+            ADSCallback.RaiseAdRevenueAdMob(adValue);
         }
 
         private void HandleAppOpenAdFailed(AdError obj)
@@ -187,8 +185,8 @@ namespace ProjectCore.Monetize
             return AdsSetting.AdMobDefine.IosAppOpenID;
 #endif
         }
-
+        
         #endregion
     }
-#endif
 }
+#endif

@@ -11,6 +11,36 @@ namespace ProjectCore.Monetize
     {
         #region Event Definitions
 
+#if SDK_INSTALLED_ADMOB
+        public static event Action<GoogleMobileAds.Api.AdValue> OnAdRevenueAdMob;
+        public static void RaiseAdRevenueAdMob(GoogleMobileAds.Api.AdValue adValue)
+        {
+            try
+            {
+                OnAdRevenueAdMob?.Invoke(adValue);
+            }
+            catch (Exception ex)
+            {
+                Verbose.E($"[ADSCallback] Error in OnAdRevenueAdMob event: {ex}");
+            }
+        }
+#endif
+
+#if SDK_INSTALLED_APPLOVINMAX
+        public static event Action<MaxSdkBase.AdInfo, AdvertisementType> OnAdRevenueAppLovin;
+        public static void RaiseAdRevenueAppLovin(MaxSdkBase.AdInfo adInfo, AdvertisementType advertisementType)
+        {
+            try
+            {
+                OnAdRevenueAppLovin?.Invoke(adInfo, advertisementType);
+            }
+            catch (Exception ex)
+            {
+                Verbose.E($"[ADSCallback] Error in OnAdRevenueAppLovin event: {ex}");
+            }
+        }
+#endif
+
         // 광고 제공자 초기화 이벤트
         public static event Action<AdProviderType> OnAdProviderInitialized;
         // 광고 로드 이벤트

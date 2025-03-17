@@ -1,16 +1,13 @@
 {
-    "name": "ProjectCore.Module",
+    "name": "ProjectCore.PlatformAnalysis",
     "rootNamespace": "",
     "references": [
-        "GUID:274e9b1bad970479fb560fd7dd385bef",
-        "GUID:d525ad6bd40672747bde77962f1c401e",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-        "GUID:0c0c8357443d62a4c9e55fe39d3a3e51",
-        "GUID:99a7b5d5f35bf45e49f6df50ee064cf8",
         "GUID:d36c41508a2ec49e3af46e56bca37629",
         "GUID:a9583fc59a6084c25b03148533d8b692",
-        "GUID:72f05c5169cc04cb1b3eeea06f372221"
+        "GUID:60bfecf5cb232594891bc622f40d6bed",
+        "GUID:62a7526a084e6428ea4f6d0161bc7e18",
+        "GUID:f8c64bb88d959406689053ae3f31183d",
+        "GUID:a4cfc1a18fa3a469b96d885db522f42e"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
