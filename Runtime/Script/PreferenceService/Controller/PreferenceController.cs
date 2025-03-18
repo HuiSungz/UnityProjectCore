@@ -290,7 +290,7 @@ namespace ProjectCore.Preference
 
             private void OnApplicationFocus(bool hasFocus)
             {
-#if UNITY_EDITOR
+#if !UNITY_EDITOR
                 if (!hasFocus)
                 {
                     Prefs.RaiseOnPreviousSaveAction();
