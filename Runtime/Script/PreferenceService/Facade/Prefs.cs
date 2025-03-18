@@ -9,6 +9,7 @@ namespace ProjectCore.Preference
     {
         private static bool _isInitialized;
         public static bool Initialized => _isInitialized;
+        public static event Action OnPreviousSaveAction;
         
         #region Initialize
 
@@ -124,5 +125,10 @@ namespace ProjectCore.Preference
         }
 
         #endregion
+
+        internal static void RaiseOnPreviousSaveAction()
+        {
+            OnPreviousSaveAction?.Invoke();
+        }
     }
 }
