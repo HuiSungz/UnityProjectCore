@@ -43,8 +43,7 @@ namespace ProjectCore.Module
                 Debug.LogWarning($"[{Name}] Workflow이 정의되어 있지 않습니다.");
                 return true;
             }
-
-            var nextFrame = UniTask.NextFrame();
+            
             var isSucceeded = false;
             foreach (var workflow in _sortedWorkflow)
             {
@@ -54,7 +53,7 @@ namespace ProjectCore.Module
                     
                     if (isSucceeded)
                     {
-                        await nextFrame;
+                        await UniTask.NextFrame();
                         continue;
                     }
                     

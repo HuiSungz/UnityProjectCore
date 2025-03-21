@@ -196,7 +196,6 @@ namespace ProjectCore.Monetize
                 product.Product.receipt, product.Product.definition.id,
                 googleTangle, appleTangle);
             return isValid;
-
         }
 
         public static bool IsValidatedReceipt(string skuID)

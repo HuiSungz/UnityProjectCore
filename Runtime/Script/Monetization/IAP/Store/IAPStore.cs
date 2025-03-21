@@ -27,6 +27,7 @@ namespace ProjectCore.Monetize
             }
             
             IAPCallback.RaiseShowLoading(IAPLoadingType.Purchase);
+            ADS.AppOpenAvailable = false;
             
             var catalog = IAP.GetCatalogWithSku(skuID);
             if (catalog != null)

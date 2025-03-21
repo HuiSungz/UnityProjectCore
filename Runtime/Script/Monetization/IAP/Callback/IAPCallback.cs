@@ -71,6 +71,7 @@ namespace ProjectCore.Monetize
         {
             try
             {
+                ADS.AppOpenAvailable = true;
                 OnHideLoading?.Invoke(loadingType, isCompleted);
             }
             catch (Exception exception)
