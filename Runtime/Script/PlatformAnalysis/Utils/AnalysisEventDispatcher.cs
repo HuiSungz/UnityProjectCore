@@ -48,15 +48,19 @@ namespace ProjectCore.PlatformAnalysis
             }
         }
 
+#if SDK_INSTALLED_ADMOB
         private void RevenueCallback(GoogleMobileAds.Api.AdValue adValue)
         {
             Analysis.LogAdMobRevenue(adValue);
         }
+#endif
 
+#if SDK_INSTALLED_APPLOVINMAX
         private void RevenueCallback(MaxSdkBase.AdInfo adInfo, AdvertisementType advertisementType)
         {
             Analysis.LogAppLovinRevenue(adInfo, advertisementType);
         }
+#endif
         
         private void RevenueIAPCallback(PurchaseEventArgs purchaseEventArgs)
         {

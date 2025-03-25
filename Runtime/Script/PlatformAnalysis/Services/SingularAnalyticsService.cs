@@ -1,7 +1,4 @@
 
-#if !SDK_INSTALLED_SINGULAR
-using System.Diagnostics;
-#endif
 using ProjectCore.PlatformService;
 
 namespace ProjectCore.PlatformAnalysis
@@ -60,13 +57,8 @@ namespace ProjectCore.PlatformAnalysis
 #else
         public bool IsInitialized => false;
         
-        [Conditional("SDK_INSTALLED_SINGULAR")]
         public void LogEvent(EventData data) { }
-        
-        [Conditional("SDK_INSTALLED_SINGULAR")]
         public void LogIAPEvent(IAPEventData data) { }
-        
-        [Conditional("SDK_INSTALLED_SINGULAR")]
         public void LogAdRevenue(AdRevenueData data) { }
 #endif
     }

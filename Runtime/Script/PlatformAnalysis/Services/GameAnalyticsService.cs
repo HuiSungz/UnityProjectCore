@@ -1,10 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-#if !SDK_INSTALLED_GAMEANALYTICS
-using System.Diagnostics;
-#endif
-using GameAnalyticsSDK;
 using ProjectCore.Monetize;
 
 namespace ProjectCore.PlatformAnalysis
@@ -17,20 +13,20 @@ namespace ProjectCore.PlatformAnalysis
         public AnalysisType Type => AnalysisType.GameAnalytics;
         
 #if SDK_INSTALLED_GAMEANALYTICS
-        public bool IsInitialized => GameAnalytics.Initialized;
+        public bool IsInitialized => GameAnalyticsSDK.GameAnalytics.Initialized;
         
         public void LogEvent(EventData data)
         {
             string eventName = data.EventName.ToLower();
             
-            GameAnalytics.NewDesignEvent(!string.IsNullOrEmpty(data.ParamValue) 
+            GameAnalyticsSDK.GameAnalytics.NewDesignEvent(!string.IsNullOrEmpty(data.ParamValue) 
                 ? $"{eventName}:{data.ParamValue}" 
                 : eventName);
         }
         
         public void LogIAPEvent(IAPEventData data)
         {
-            GameAnalytics.NewBusinessEvent("USD", 1, 
+            GameAnalyticsSDK.GameAnalytics.NewBusinessEvent("USD", 1, 
                 data.TransactionId, 
                 data.ProductId, 
                 data.StoreKey, 
@@ -52,35 +48,30 @@ namespace ProjectCore.PlatformAnalysis
             
             var gaAdType = ConvertToGaAdType(data.AdType);
             
-            GameAnalytics.NewAdEvent(
-                GAAdAction.Show,
+            GameAnalyticsSDK.GameAnalytics.NewAdEvent(
+                GameAnalyticsSDK.GAAdAction.Show,
                 gaAdType,
                 data.Platform,
-                data.PlacementName ?? data.AdType.ToString(),
+                data.NetworkName,
                 gameAnalyticsParameters);
         }
         
-        private GAAdType ConvertToGaAdType(AdvertisementType adType)
+        private GameAnalyticsSDK.GAAdType ConvertToGaAdType(AdvertisementType adType)
         {
             return adType switch
             {
-                AdvertisementType.Banner => GAAdType.Banner,
-                AdvertisementType.Interstitial => GAAdType.Interstitial,
-                AdvertisementType.Rewarded => GAAdType.RewardedVideo,
-                AdvertisementType.AppOpen => GAAdType.AppOpen,
+                AdvertisementType.Banner => GameAnalyticsSDK.GAAdType.Banner,
+                AdvertisementType.Interstitial => GameAnalyticsSDK.GAAdType.Interstitial,
+                AdvertisementType.Rewarded => GameAnalyticsSDK.GAAdType.RewardedVideo,
+                AdvertisementType.AppOpen => GameAnalyticsSDK.GAAdType.AppOpen,
                 _ => throw new ArgumentOutOfRangeException(nameof(adType), adType, null)
             };
         }
 #else
         public bool IsInitialized => false;
         
-        [Conditional("SDK_INSTALLED_GAMEANALYTICS")]
         public void LogEvent(EventData data) { }
-        
-        [Conditional("SDK_INSTALLED_GAMEANALYTICS")]
         public void LogIAPEvent(IAPEventData data) { }
-        
-        [Conditional("SDK_INSTALLED_GAMEANALYTICS")]
         public void LogAdRevenue(AdRevenueData data) { }
 #endif
     }
