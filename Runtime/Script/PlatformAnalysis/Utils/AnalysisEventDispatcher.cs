@@ -24,8 +24,12 @@ namespace ProjectCore.PlatformAnalysis
             
             if (settings.AutoSendADSRevenue)
             {
+#if SDK_INSTALLED_ADMOB
                 ADSCallback.OnAdRevenueAdMob += RevenueCallback;
+#endif
+#if SDK_INSTALLED_APPLOVINMAX
                 ADSCallback.OnAdRevenueAppLovin += RevenueCallback;
+#endif
             }
 
             if (settings.AutoSendIAPRevenue)
@@ -38,8 +42,12 @@ namespace ProjectCore.PlatformAnalysis
         {
             if (_settings.AutoSendADSRevenue)
             {
+#if SDK_INSTALLED_ADMOB
                 ADSCallback.OnAdRevenueAdMob -= RevenueCallback;
+#endif
+#if SDK_INSTALLED_APPLOVINMAX
                 ADSCallback.OnAdRevenueAppLovin -= RevenueCallback;
+#endif
             }
 
             if (_settings.AutoSendIAPRevenue)
