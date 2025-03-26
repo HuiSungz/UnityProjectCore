@@ -97,7 +97,7 @@ namespace ProjectCore.Preference
         [JsonIgnore]
         public T VisualValue
         {
-            get => !EqualityComparer<T>.Default.Equals(_visualValue, default) ? _visualValue : Value;
+            get => _visualValue;
             set
             {
                 var previousValue = _visualValue;
