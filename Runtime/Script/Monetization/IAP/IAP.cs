@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using ProjectCore.Utilities;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -154,16 +155,41 @@ namespace ProjectCore.Monetize
             return _iapStore.IsSubscribed(skuID);
         }
 
-        public static string GetProductLocalPriceString(string skuID)
+        public static string GetProductLocalPriceString(string skuID, bool isNoCurrencyCode = true)
         {
             var product = GetProductData(skuID);
             if (product != null)
             {
-                return product.GetLocalPrice();
+                var priceString = product.GetLocalPrice();
+                if (isNoCurrencyCode)
+                {
+                    priceString = RemoveCurrencySymbols(priceString);
+                }
+                
+                return priceString;
             }
             
             Verbose.W($"[IAP] Product not found. ID : {skuID}");
             return string.Empty;
+        }
+
+        private static string RemoveCurrencySymbols(string priceString)
+        {
+            if (string.IsNullOrEmpty(priceString))
+            {
+                return priceString;
+            }
+            
+            string[] currencySymbols = { "$", "₩", "€", "£", "¥", "₹", "₽", "₺", "₴", "₿", "¢" };
+            foreach (var symbol in currencySymbols)
+            {
+                priceString = priceString.Replace(symbol, "");
+            }
+            
+            // 추가적으로 유니코드 통화 기호 패턴을 제거합니다
+            // \p{Sc}는 유니코드에서 통화 기호 범주를 나타냅니다
+            priceString = Regex.Replace(priceString, @"\p{Sc}", "");
+            return priceString.Trim();
         }
 
         public static void ValidateReceiptAll(byte[] googleTangle, byte[] appleTangle)

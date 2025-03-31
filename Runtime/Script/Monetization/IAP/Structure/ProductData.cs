@@ -46,7 +46,7 @@ namespace ProjectCore.Monetize
         
         public string GetLocalPrice()
         {
-            return $"{ISOCurrencyCode} {Price}";
+            return $"{Price}";
         }
     }
 }
