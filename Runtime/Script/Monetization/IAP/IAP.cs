@@ -15,7 +15,7 @@ namespace ProjectCore.Monetize
         private static bool _isInitialized;
         public static bool IsInitialized => _isInitialized;
 
-        private static Dictionary<string, IAPCatalog> _typeToCatalogMap;
+        private static Dictionary<string, IAPCatalog> _skuToCatalogMap;
         private static IAPStore _iapStore;
         private static IAPSettingSO _iapSetting;
 
@@ -35,16 +35,15 @@ namespace ProjectCore.Monetize
                 return;
             }
             
-            _typeToCatalogMap = new Dictionary<string, IAPCatalog>();
-            
+            _skuToCatalogMap = new Dictionary<string, IAPCatalog>();
             var iapCatalog = _iapSetting.IAPCatalog;
             if (!(iapCatalog == null || iapCatalog.Length == 0))
             {
                 foreach(var catalog in iapCatalog)
                 {
-                    if (!_typeToCatalogMap.TryAdd(catalog.ID, catalog))
+                    if (!_skuToCatalogMap.TryAdd(catalog.Sku, catalog))
                     {
-                        Verbose.E($"[IAP] Product with the type {catalog.ID} has duplicates in the list!");
+                        Verbose.E($"[IAP] Product with the SKU {catalog.Sku} has duplicates in the list!");
                     }
                 }
             }
@@ -61,16 +60,16 @@ namespace ProjectCore.Monetize
                 return;
             }
             
-            _typeToCatalogMap = new Dictionary<string, IAPCatalog>();
+            _skuToCatalogMap = new Dictionary<string, IAPCatalog>();
             
             var iapCatalog = _iapSetting.IAPCatalog;
             if (!(iapCatalog == null || iapCatalog.Length == 0))
             {
                 foreach(var catalog in iapCatalog)
                 {
-                    if (!_typeToCatalogMap.TryAdd(catalog.ID, catalog))
+                    if (!_skuToCatalogMap.TryAdd(catalog.Sku, catalog))
                     {
-                        Verbose.E($"[IAP] Product with the type {catalog.ID} has duplicates in the list!");
+                        Verbose.E($"[IAP] Product with the SKU {catalog.Sku} has duplicates in the list!");
                     }
                 }
             }
@@ -88,12 +87,12 @@ namespace ProjectCore.Monetize
 
         public static IAPCatalog GetCatalogWithID(string productID)
         {
-            return _typeToCatalogMap.Values.FirstOrDefault(catalog => catalog.ID == productID);
+            return _skuToCatalogMap.Values.FirstOrDefault(catalog => catalog.ID == productID);
         }
 
         public static IAPCatalog GetCatalogWithSku(string skuID)
         {
-            return _typeToCatalogMap.GetValueOrDefault(skuID);
+            return _skuToCatalogMap.GetValueOrDefault(skuID);
         }
         
         public static Product GetProductWithSku(string skuID)
@@ -139,7 +138,7 @@ namespace ProjectCore.Monetize
             var productData = _iapStore.GetProductData(skuID);
             if (productData == null)
             {
-                Verbose.W($"[IAP] Product not found. ID : {skuID}");
+                Verbose.W($"[IAP] Product not found. SKU : {skuID}");
             }
 
             return productData;
@@ -169,7 +168,7 @@ namespace ProjectCore.Monetize
                 return priceString;
             }
             
-            Verbose.W($"[IAP] Product not found. ID : {skuID}");
+            Verbose.W($"[IAP] Product not found. SKU : {skuID}");
             return string.Empty;
         }
 
@@ -235,7 +234,7 @@ namespace ProjectCore.Monetize
             var catalog = GetCatalogWithSku(skuID);
             if (catalog == null)
             {
-                Verbose.W($"[IAP] Product not found. ID : {skuID}");
+                Verbose.W($"[IAP] Product not found. SKU : {skuID}");
                 return false;
             }
 
@@ -244,7 +243,7 @@ namespace ProjectCore.Monetize
                 return validate;
             }
             
-            Verbose.W($"[IAP] Product not validated. ID : {skuID}");
+            Verbose.W($"[IAP] Product not found. SKU : {skuID}");
             return false;
 
         }
