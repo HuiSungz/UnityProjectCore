@@ -47,7 +47,7 @@ namespace ProjectCore.Monetize
 
         public void Hide(string unitId)
         {
-            if (_activateBanner)
+            if (!_activateBanner)
             {
                 return;
             }
