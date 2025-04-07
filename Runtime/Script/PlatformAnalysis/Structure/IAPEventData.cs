@@ -9,7 +9,6 @@ namespace ProjectCore.PlatformAnalysis
         public string StoreKey { get; }
         public Product Product { get; }
         public string Revenue { get; }
-        public string TransactionId { get; }
         public string ProductId { get; }
         public Dictionary<string, object> Attributes { get; }
         
@@ -18,7 +17,6 @@ namespace ProjectCore.PlatformAnalysis
             StoreKey = builder.StoreKey;
             Product = builder.Product;
             Revenue = builder.Revenue;
-            TransactionId = Product?.transactionID;
             ProductId = Product?.definition.id;
             Attributes = builder.Attributes ?? new Dictionary<string, object>();
         }

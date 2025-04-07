@@ -27,7 +27,7 @@ namespace ProjectCore.PlatformAnalysis
         public void LogIAPEvent(IAPEventData data)
         {
             GameAnalyticsSDK.GameAnalytics.NewBusinessEvent("USD", 1, 
-                data.TransactionId, 
+                data.Product.definition.type.ToString(),
                 data.ProductId, 
                 data.StoreKey, 
                 data.Attributes);
