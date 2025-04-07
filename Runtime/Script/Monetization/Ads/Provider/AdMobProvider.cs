@@ -27,10 +27,19 @@ namespace ProjectCore.Monetize
         protected override async UniTask<bool> InitializeProviderAsync()
         {
             MobileAds.SetiOSAppPauseOnBackground(true);
-            ADS.CallEventInMainThread(() =>
+            MobileAds.Initialize(initStatus =>
             {
-                LoadAppOpenAd();
-                AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
+                if (initStatus == null)
+                {
+                    Verbose.E("[ADS] AdMob initialization failed.");
+                    return;
+                }
+                
+                ADS.CallEventInMainThread(() =>
+                {
+                    LoadAppOpenAd();
+                    AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
+                });
             });
 
             await UniTask.Yield();
