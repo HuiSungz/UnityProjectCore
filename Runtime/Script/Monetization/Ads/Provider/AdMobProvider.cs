@@ -192,6 +192,8 @@ namespace ProjectCore.Monetize
             return AdsSetting.AdMobDefine.AndroidAppOpenID;
 #elif UNITY_IOS
             return AdsSetting.AdMobDefine.IosAppOpenID;
+#else
+            return string.Empty;
 #endif
         }
         

@@ -35,6 +35,10 @@ namespace ProjectCore.Monetize
         public string InterstitialID => _iosInterstitialID;
         public string RewardID => _iosRewardID;
         public string BannerID => _iosBannerID;
+#else
+        public string InterstitialID => string.Empty;
+        public string RewardID => string.Empty;
+        public string BannerID => string.Empty;
 #endif
         
         #endregion
