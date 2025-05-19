@@ -71,6 +71,8 @@ namespace ProjectCore.Monetize
                 }
                 
                 return latestAppleReceipt != null && latestAppleReceipt.cancellationDate == DateTime.MinValue;
+#else
+                return true;
 #endif
             }
             catch (Exception exception)

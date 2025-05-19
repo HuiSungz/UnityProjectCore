@@ -24,7 +24,7 @@ namespace ProjectCore.Monetize
 #elif UNITY_IOS
                 return _iosID;
 #else
-                return string.Format("unknown_platform_{0}", _productKey);
+                return string.Format("unknown_platform_{0}", _productSku);
 #endif
             }
         }
